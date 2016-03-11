@@ -49,15 +49,15 @@ dir = '../data_processed'
 
 tf.app.flags.DEFINE_string('eval_dir', dir,
                            """Directory where to write event logs.""")
-tf.app.flags.DEFINE_string('eval_data', 'out.bin',
+tf.app.flags.DEFINE_string('eval_data', 'test_2_classes.bin',
                            """Either 'test' or 'train_eval'.""")
 tf.app.flags.DEFINE_string('checkpoint_dir', dir,
                            """Directory where to read model checkpoints.""")
 tf.app.flags.DEFINE_integer('eval_interval_secs', 60 * 5,
                             """How often to run the eval.""")
-tf.app.flags.DEFINE_integer('num_examples', 10,
+tf.app.flags.DEFINE_integer('num_examples', 50,
                             """Number of examples to run.""")
-tf.app.flags.DEFINE_boolean('run_once', False,
+tf.app.flags.DEFINE_boolean('run_once', True,
                          """Whether to run eval only once.""")
 
 
@@ -99,10 +99,10 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
         predictions = sess.run([top_k_op])
         true_count += np.sum(predictions)
         step += 1
-
+      
       # Compute precision @ 1.
       precision = true_count / total_sample_count
-      print('%s: precision @ 1 = %.3f' % (datetime.now(), precision))
+      print('%s: precision = %.3f' % (datetime.now(), precision))
 
       summary = tf.Summary()
       summary.ParseFromString(sess.run(summary_op))
@@ -119,9 +119,8 @@ def evaluate():
   """Eval CIFAR-10 for a number of steps."""
   with tf.Graph().as_default():
     # Get images and labels for CIFAR-10.
-    eval_data = FLAGS.eval_data == 'out.bin'
+    eval_data = FLAGS.eval_data == 'test_2_classes.bin'
     images, labels = cifarfood.inputs(eval_data=eval_data)
-
     # Build a Graph that computes the logits predictions from the
     # inference model.
     logits = cifarfood.inference(images)

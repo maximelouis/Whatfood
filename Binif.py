@@ -37,8 +37,9 @@ for i,elt in enumerate(adresses):
     g = im[:,:,1].flatten()
     b = im[:,:,2].flatten()
     label = [labels[i]]
-    out = np.concatenate((out,np.array(list(label)+list(r)+list(g)+list(b),np.uint8)))
+    out = np.concatenate((out,np.array(list(label)+list(r)+list(g)+list(b))))
 #print out
 
-out.tofile("../data_processed/out.bin")
+out = np.array(out,np.uint8)
+out.tofile("../data_processed/train_set.bin")
 
