@@ -49,7 +49,7 @@ import cifarfood_input
 FLAGS = tf.app.flags.FLAGS
 
 # Basic model parameters.
-tf.app.flags.DEFINE_integer('batch_size', 5,
+tf.app.flags.DEFINE_integer('batch_size', 20,
                             """Number of images to process in a batch.""")
 tf.app.flags.DEFINE_string('data_dir', '../data_processed',
                            """Path to the CIFAR-10 data directory.""")

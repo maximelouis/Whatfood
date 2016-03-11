@@ -49,7 +49,7 @@ dir = '../data_processed'
 
 tf.app.flags.DEFINE_string('eval_dir', dir,
                            """Directory where to write event logs.""")
-tf.app.flags.DEFINE_string('eval_data', 'test_2_classes.bin',
+tf.app.flags.DEFINE_string('eval_data', 'test_10_classes.bin',
                            """Either 'test' or 'train_eval'.""")
 tf.app.flags.DEFINE_string('checkpoint_dir', dir,
                            """Directory where to read model checkpoints.""")
@@ -119,7 +119,7 @@ def evaluate():
   """Eval CIFAR-10 for a number of steps."""
   with tf.Graph().as_default():
     # Get images and labels for CIFAR-10.
-    eval_data = FLAGS.eval_data == 'test_2_classes.bin'
+    eval_data = FLAGS.eval_data == 'test_10_classes.bin'
     images, labels = cifarfood.inputs(eval_data=eval_data)
     # Build a Graph that computes the logits predictions from the
     # inference model.

@@ -30,7 +30,7 @@ import tensorflow as tf
 IMAGE_SIZE = 100
 
 # Global constants describing the CIFAR-10 data set.
-NUM_CLASSES = 2
+NUM_CLASSES = 10
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 10
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 10
 
@@ -145,7 +145,7 @@ def distorted_inputs(data_dir, batch_size):
   #CHANGE THE TRAINING SET HERE
   ############################
   ############################
-  filename = os.path.join(data_dir, 'train_2_classes.bin')
+  filename = os.path.join(data_dir, 'train_10_classes.bin')
   #print(filename)
   if not tf.gfile.Exists(filename):
     raise ValueError('Failed to find file: ' + filename)
@@ -205,10 +205,10 @@ def inputs(eval_data, data_dir, batch_size):
     labels: Labels. 1D tensor of [batch_size] size.
   """
   if not eval_data:
-    filenames = os.path.join(data_dir, 'train_2_classes.bin' )
+    filenames = os.path.join(data_dir, 'train_10_classes.bin' )
     num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
   else:#########TEST SET
-    filenames = [os.path.join(data_dir,'test_2_classes.bin')]
+    filenames = [os.path.join(data_dir,'test_10_classes.bin')]
     num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 
   for f in filenames:

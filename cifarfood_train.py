@@ -51,7 +51,7 @@ FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('train_dir', '../data_processed',
                            """Directory where to write event logs """
                            """and checkpoint.""")
-tf.app.flags.DEFINE_integer('max_steps', 1000,
+tf.app.flags.DEFINE_integer('max_steps', 10000,
                             """Number of batches to run.""")
 tf.app.flags.DEFINE_boolean('log_device_placement', False,
                             """Whether to log device placement.""")
@@ -97,8 +97,8 @@ def train():
       start_time = time.time()
       _, loss_value = sess.run([train_op, loss])
       duration = time.time() - start_time
-      print("logits:")
-      print(sess.run(logits))
+#      print("logits:")
+#      print(sess.run(logits))
       print("labels:")
       print(sess.run(labels))
       #print("images:")
