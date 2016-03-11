@@ -27,7 +27,7 @@ import tensorflow as tf
 # Process images of this size. Note that this differs from the original CIFAR
 # image size of 32 x 32. If one alters this number, then the entire model
 # architecture will change and any model would need to be retrained.
-IMAGE_SIZE = 32
+IMAGE_SIZE = 100
 
 # Global constants describing the CIFAR-10 data set.
 NUM_CLASSES = 2
@@ -65,8 +65,8 @@ def read_cifar10(filename_queue):
   # See http://www.cs.toronto.edu/~kriz/cifar.html for a description of the
   # input format.
   label_bytes = 1
-  result.height = 32
-  result.width = 32
+  result.height = IMAGE_SIZE
+  result.width = IMAGE_SIZE
   result.depth = 3
   image_bytes = result.height * result.width * result.depth
   # Every record consists of a label followed by the image, with a
@@ -78,7 +78,6 @@ def read_cifar10(filename_queue):
   # and footer_bytes at their default of 0.
   reader = tf.FixedLengthRecordReader(record_bytes=record_bytes)
   result.key, value = reader.read(filename_queue)
-  print(result.key)
   
   # Convert from a string to a vector of uint8 that is record_bytes long.
   record_bytes = tf.decode_raw(value, tf.uint8)
@@ -86,7 +85,6 @@ def read_cifar10(filename_queue):
   # The first bytes represent the label, which we convert from uint8->int32.
   result.label = tf.cast(
       tf.slice(record_bytes, [0], [label_bytes]), tf.int32)
-  print(result.label)
   # The remaining bytes after the label represent the image, which we reshape
   # from [depth * height * width] to [depth, height, width].
   depth_major = tf.reshape(tf.slice(record_bytes, [label_bytes], [image_bytes]),
@@ -94,31 +92,6 @@ def read_cifar10(filename_queue):
   # Convert from [depth, height, width] to [height, width, depth].
   result.uint8image = tf.transpose(depth_major, [1, 2, 0])
   return result
-
-#
-#
-#  reader = tf.TFRecordReader()
-#  key, serialized_example = reader.read(filename_queue)
-#  features = tf.parse_example(serialized_example,features={'label': tf.VarLenFeature(tf.int64),'image_raw': tf.VarLenFeature(tf.int64)})
-#
-#  # Convert from a scalar string tensor (whose single string has
-#  image = tf.decode_raw(features['image_raw'], tf.uint8)
-#
-#  print(image.shape())
-#  # OPTIONAL: Could reshape into a 28x28 image and apply distortions
-#  # here.  Since we are not applying any distortions in this
-#  # example, and the next step expects the image to be flattened
-#  # into a vector, we don't bother.
-#  # Convert from [0, 255] -> [-0.5, 0.5] floats.
-#  #  image = tf.cast(image, tf.float32)
-#  #  image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-#
-#                                # Convert label from a scalar uint8 tensor to an int32 scalar.
-#  label = tf.cast(features['label'], tf.int32)
-#
-#  result.label = label
-#  result.image = image
-#  result.key = key
 
 
 def _generate_image_and_label_batch(image, label, min_queue_examples,
@@ -139,7 +112,7 @@ def _generate_image_and_label_batch(image, label, min_queue_examples,
   """
   # Create a queue that shuffles the examples, and then
   # read 'batch_size' images + labels from the example queue.
-  num_preprocess_threads = 16
+  num_preprocess_threads = 1
   if shuffle:
     images, label_batch = tf.train.shuffle_batch(
         [image, label],
@@ -172,7 +145,7 @@ def distorted_inputs(data_dir, batch_size):
   #CHANGE THE TRAINING SET HERE
   ############################
   ############################
-  filename = os.path.join(data_dir, 'train_2_classes.gz')
+  filename = os.path.join(data_dir, 'train_2_classes.bin')
   #print(filename)
   if not tf.gfile.Exists(filename):
     raise ValueError('Failed to find file: ' + filename)
@@ -232,10 +205,10 @@ def inputs(eval_data, data_dir, batch_size):
     labels: Labels. 1D tensor of [batch_size] size.
   """
   if not eval_data:
-    filenames = os.path.join(data_dir, 'train_2_classes.gz' )
+    filenames = os.path.join(data_dir, 'train_2_classes.bin' )
     num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
-  else:#########TRAIN SET
-    filenames = [os.path.join(data_dir,'test_diag.gz')]
+  else:#########TEST SET
+    filenames = [os.path.join(data_dir,'test_2_classes.bin')]
     num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 
   for f in filenames:

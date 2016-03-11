@@ -54,7 +54,7 @@ for i,elt in enumerate(img_list):
         b = im[:,:,2].flatten()
         #print(len(r),len(g),len(b))
         label = [label_list[i]]
-        out_train = np.concatenate((out_train,np.array(list(label)+list(r)+list(g)+list(b),np.uint8)))
+        out_train = np.concatenate((out_train,np.array(list(label)+list(r)+list(g)+list(b))))
         #print(len(r),len(g),len(b),len(label))
         bytes += len(r)+len(g)+len(b)+len(label)
     else:
@@ -66,11 +66,12 @@ for i,elt in enumerate(img_list):
         label = [label_list[i]]
         #print(len(r),len(g),len(b),len(label))
         bytes += len(r)+len(g)+len(b)+len(label)
-        out_test = np.concatenate((out_test,np.array(list(label)+list(r)+list(g)+list(b),np.uint8)))
+        out_test = np.concatenate((out_test,np.array(list(label)+list(r)+list(g)+list(b))))
 
 print "bytes : " + str(bytes)
 print(len(out_train)+len(out_test))
-out_train.tofile("../data_processed/train_2_classes.gz")
-out_test.tofile("../data_processed/test_2_classes.gz")
+out_train = np.array(out_train,np.uint8)
+out_train.tofile("../data_processed/train_2_classes.bin")
+out_test.tofile("../data_processed/test_2_classes.bin")
 
 
