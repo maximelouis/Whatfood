@@ -12,7 +12,7 @@ dir = "../data_unprocessed"
 imglab_list = []
 
 #Get the adresses of the images using the recipes_list
-with open(dir+"/"+"recipes_list.txt","r") as recettes:
+with open("recipes_list.txt","r") as recettes:
     rec = recettes.readlines()[:10]####Change here for number of classes
     for i,elt in enumerate(rec):
         s = str.strip(elt)
@@ -22,11 +22,14 @@ with open(dir+"/"+"recipes_list.txt","r") as recettes:
             #print a
             if a[0] == "A":
                 #print a
-                imglab_list.append((dir+"/"+s+"/"+a,i))
                 l =dir+"/"+s+"/"+a
-                img = Image.open(l)
-                img2 = img.resize((Image_size,Image_size),Image.ANTIALIAS)
-                img2.save(dir+"/"+s+"/"+a)
+                try:
+                    imglab_list.append((dir+"/"+s+"/"+a,i))
+                    img = Image.open(l)
+                    img2 = img.resize((Image_size,Image_size),Image.ANTIALIAS)
+                    img2.save(dir+"/"+s+"/"+a)
+                except:
+                    pass
 
 out_train = []
 out_test = []
@@ -42,26 +45,33 @@ for i,elt in enumerate(imglab_list):
     if (i%100 ==0):
         print i
     if (i <= 0.7 * a):
-        im = Image.open(elt[0])
-        im = (np.array(im))
-        r = im[:,:,0].flatten()
-        g = im[:,:,1].flatten()
-        b = im[:,:,2].flatten()
-        #print(len(r),len(g),len(b))
-        label = [elt[1]]
-        out_train = np.concatenate((out_train,np.array(list(label)+list(r)+list(g)+list(b))))
-        #print(len(r),len(g),len(b),len(label))
-        bytes += len(r)+len(g)+len(b)+len(label)
+        try:
+            im = Image.open(elt[0])
+            im = (np.array(im))
+            r = im[:,:,0].flatten()
+            g = im[:,:,1].flatten()
+            b = im[:,:,2].flatten()
+            #print(len(r),len(g),len(b))
+            label = [elt[1]]
+            out_train = np.concatenate((out_train,np.array(list(label)+list(r)+list(g)+list(b))))
+            #print(len(r),len(g),len(b),len(label))
+            bytes += len(r)+len(g)+len(b)+len(label)
+        except:
+            pass
     else:
-        im = Image.open(elt[0])
-        im = (np.array(im))
-        r = im[:,:,0].flatten()
-        g = im[:,:,1].flatten()
-        b = im[:,:,2].flatten()
-        label = [elt[1]]
-        #print(len(r),len(g),len(b),len(label))
-        bytes += len(r)+len(g)+len(b)+len(label)
-        out_test = np.concatenate((out_test,np.array(list(label)+list(r)+list(g)+list(b))))
+        try:
+            im = Image.open(elt[0])
+            im = (np.array(im))
+            r = im[:,:,0].flatten()
+            g = im[:,:,1].flatten()
+            b = im[:,:,2].flatten()
+            label = [elt[1]]
+            #print(len(r),len(g),len(b),len(label))
+            bytes += len(r)+len(g)+len(b)+len(label)
+            out_test = np.concatenate((out_test,np.array(list(label)+list(r)+list(g)+list(b))))
+        except:
+            pass
+
 
 print "bytes : " + str(bytes)
 print(len(out_train)+len(out_test))

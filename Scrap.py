@@ -33,7 +33,7 @@ for elt in l[:20]:
     print query
     query= query.split()
     query='+'.join(query)
-    for nb in xrange(10):
+    for nb in xrange(14):
         start = nb * 20
         url="https://www.google.com/search?q="+query+"&source=lnms&tbm=isch&start=" + str(start)
         header = {'User-Agent': 'Mozilla/1.0'}

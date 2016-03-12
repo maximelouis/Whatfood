@@ -1,23 +1,30 @@
 brochettes d agneau
 terrine d avocat a la tomate
-avocat a l andalouse
+couscous
+tomates farcies
+paella
+hachis parmentier
+tarte a la rhubarbe
+salade a la provençale
+poulet au curry
+brochettes a l orientale
+brochettes de poulet a l orientale
 avocat au crabe
-avocat a la creole
 salade de poulet a l avocat
 avocat aux pommes
-avocat aux crevettes
-avocats au roquefort
+avocat a l andalouse
 salade de langoustines a l avocat
-brochettes a l orientale
 brochettes a la marseillaise
 brochettes de coquilles saint-jacques
+avocats au roquefort
 brochettes d agneau a la provençale
 brochettes de boeuf berrichonne
 brochettes de fruits de mer
+avocat a la creole
+avocat aux crevettes
 brochettes de lotte sauce curry
 brochettes de poisson
 brochettes de poisson a la sicilienne
-brochettes de poulet a l orientale
 lentilles a l indienne
 curry de poisson a l indienne
 dinde a l indienne
@@ -37,13 +44,11 @@ couscous au poisson – variantes
 moughrabieh
 sushis aux crevettes
 riz a la creole
-le couscous
 gambas au curry et a la papaye
 gambas au curry
 gambas a la creole
 pilaf de mouton a la syrienne
 salade de pates
-salade a la provençale
 salade exotique
 salade algerienne
 salade a la bretonne
@@ -96,14 +101,12 @@ gateau express aux abricots
 tarte aux fraises
 le lait d amande
 tarte au potiron ou pumpkin pie
-tarte a la rhubarbe
 le strudel
 le paris-brest
 la creme au chocolat fraise
 gateau alcazar
 creme bavarois a la vanille
 schaleth a la juive
-la paella
 la paella
 la paella espagnol
 la paella a la valenciennes
@@ -194,7 +197,6 @@ le croustillant aux girolles
 crabe nouvelle orleans
 soupe a l oignon
 tomates farcies
-hachis parmentier
 la quiche a la lorraine
 le cassoulet de castelnaudary
 ragout de rognon et ris de veau aux champignons
@@ -225,7 +227,6 @@ carpaccio de bœuf
 filet de boeuf wellington
 le pot-au-feu
 boeuf bourguignon
-tomates farcies
 hachis parmentier
 boulettes de bœuf a l italienne
 bœuf en daube a la marseillaise
@@ -271,7 +272,6 @@ poulet saute a la grecque
 poulet saute louisette
 poulet saute a la fermiere
 gesiers de poulets en ragoût
-poulet au curry
 escalopes de veau cordon bleu
 filet mignon au poivre vert
 la tete de veau
